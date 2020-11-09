@@ -1,0 +1,37 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.5/jspdf.plugin.autotable.min.js">
+    </script>
+<script lang="javascript">
+ function tableToExcel(divId, title) {
+        var sTable = document.getElementById('temp').innerHTML;
+
+
+        var pdf = new jsPDF('p', 'pt', 'letter');
+        let pdfConf = {
+            pagesplit: true, //Adding page breaks manually using pdf.addPage();
+            background: '#fff' //White Background.
+        };
+        // pdf.fromHTML($('#export_table').get(0), 20, 20, {
+        //     width: 500
+        // })
+
+        var elem = document.getElementById("export_table");
+        var res = pdf.autoTableHtmlToJson(elem);
+        var img = new Image();
+        img.src = 'dist/img/demo.png';
+
+
+
+        var pageHeight = pdf.internal.pageSize.height || pdf.internal.pageSize.getHeight();
+        var pageWidth = pdf.internal.pageSize.width || pdf.internal.pageSize.getWidth();
+        pdf.text("Footer", pageWidth / 2, pageHeight - 20, 'center');
+        pdf.addImage(img, 'png', pageWidth / 2 - 50, 10, 100, 100, 'center');
+        pdf.text(title, pageWidth / 2, 100, 'center');
+        pdf.autoTable(res.columns, res.data, {
+            startY: 120,
+            theme: 'grid'
+        });
+        pdf.save('test.pdf');
+    }
+</script>
