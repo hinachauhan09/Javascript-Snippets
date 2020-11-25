@@ -30,7 +30,24 @@
         pdf.text(title, pageWidth / 2, 100, 'center');
         pdf.autoTable(res.columns, res.data, {
             startY: 120,
-            theme: 'grid'
+            theme: 'grid',
+            startY: 120,
+            theme: 'grid',
+            pageBreak: "auto",
+            tableWidth: "auto",
+            showHead: "everyPage",
+            showFoot: "everyPage",
+            tableLineWidth: 0,
+            tableLineColor: 200,
+            styles: {
+                "overflow": "linebreak",
+                "cellWidth": "wrap",
+                "rowPageBreak": "avoid",
+                "halign": "justify",
+                "fontSize": "8",
+                "lineColor": "100",
+                "lineWidth": ".25"
+            },
         });
         pdf.save('test.pdf');
     }
